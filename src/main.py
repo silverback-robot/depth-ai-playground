@@ -2,24 +2,24 @@ import depthai as dai
 import cv2
 import numpy as np
 
-def getFrame(queue):
+def getFrame(queue: dai.Device.getOutputQueue):
   # Get frame from queue
   frame = queue.get()
   # Convert frame to OpenCV format and return
   return frame.getCvFrame()
 
-def getMonoCamera(pipeline, isLeft):
+def getMonoCamera(pipeline: dai.Pipeline, isLeft: bool):
     # Configure mono camera
     mono = pipeline.createMonoCamera()
  
     # Set Camera Resolution
-    mono.setResolution(dai.MonoCameraProperties.SensorResolution.THE_400_P)
+    mono.setResolution(dai.MonoCameraProperties.SensorResolution.THE_480_P)
     if isLeft:
         # Get left camera
-        mono.setBoardSocket(dai.CameraBoardSocket.LEFT)
+        mono.setBoardSocket(dai.CameraBoardSocket.CAM_B)
     else :
         # Get right camera
-        mono.setBoardSocket(dai.CameraBoardSocket.RIGHT)
+        mono.setBoardSocket(dai.CameraBoardSocket.CAM_C)
     return mono
 
 if __name__ == '__main__':
@@ -62,7 +62,6 @@ if __name__ == '__main__':
             else : 
                 # Show overlapping frames
                 imOut = np.uint8(leftFrame/2 + rightFrame/2)
-        
             # Display output image
             cv2.imshow("Stereo Pair", imOut)
             
