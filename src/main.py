@@ -14,6 +14,11 @@ def getMonoCamera(pipeline: dai.Pipeline, isLeft: bool):
  
     # Set Camera Resolution
     mono.setResolution(dai.MonoCameraProperties.SensorResolution.THE_480_P)
+ 
+    # Set FPS
+    mono.setFps(15)
+
+    # Map board socket to camera
     if isLeft:
         # Get left camera
         mono.setBoardSocket(dai.CameraBoardSocket.CAM_B)
